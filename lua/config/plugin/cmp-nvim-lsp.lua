@@ -1,0 +1,1 @@
+-- 相关配置在nvim-lsp-installer初始化的时候配置进去
