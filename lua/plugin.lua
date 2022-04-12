@@ -6,7 +6,7 @@ local packer_install_plugins = {
   -- 文件管理
   ["kyazdani42/nvim-tree.lua"] = {
     -- 文件图标
-    requires = {"kyazdani42/nvim-web-devicons"}
+    requires = { "kyazdani42/nvim-web-devicons" }
   },
   -- 标签页
   ["akinsho/bufferline.nvim"] = {},
@@ -15,7 +15,7 @@ local packer_install_plugins = {
   -- 文件查找
   ["nvim-telescope/telescope.nvim"] = {
     -- LUA工具库
-    requires = {"nvim-lua/plenary.nvim"}
+    requires = { "nvim-lua/plenary.nvim" }
   },
   -- 语法高亮
   -- 可能会拖慢速度,需要排查
@@ -24,8 +24,6 @@ local packer_install_plugins = {
   --  requires = {"p00f/nvim-ts-rainbow"},
   --  run = ":TSUpdate"
   --},
-  -- 对齐线
-  ["lukas-reineke/indent-blankline.nvim"] = {},
   -- 状态栏
   ["nvim-lualine/lualine.nvim"] = {
     after = "github-nvim-theme",
@@ -63,17 +61,34 @@ local packer_install_plugins = {
   ["hrsh7th/vim-vsnip"] = {},
   -- 常见编程语言代码段
   ["rafamadriz/friendly-snippets"] = {},
+  -- 命令行窗口
+  ["akinsho/toggleterm.nvim"] = {},
+  -- 代码注释
+  ["numtoStr/Comment.nvim"] = {},
+  -- 自动保存
+  ["Pocco81/AutoSave.nvim"] = {},
+  -- 打开文件后跳转到上次编辑位置
+  ["ethanholz/nvim-lastplace"] = {},
+  -- *号匹配增加数量显示
+  ["kevinhwang91/nvim-hlslens"] = {},
+  -- 类似EasyMotion的快速跳转插件
+  ["phaazon/hop.nvim"] = {},
+  -- 启动页
+  ["glepnir/dashboard-nvim"] = {},
+  -- 文本替换
+  ["nvim-pack/nvim-spectre"] = {},
+  -- 保存undo历史记录
+  ["mbbill/undotree"] = {},
 }
 
-Packer_bootstrap =
-(function()
+Packer_bootstrap = (function()
   local packer_install_path = utils.path.join(vim.fn.stdpath("data"), "site/pack/packer/start/packer.nvim")
   local rtp_addition = vim.fn.stdpath("data") .. "/site/pack/*/start/*"
   if not string.find(vim.o.runtimepath, rtp_addition) then
     vim.o.runtimepath = rtp_addition .. "," .. vim.o.runtimepath
   end
   if vim.fn.empty(vim.fn.glob(packer_install_path)) > 0 then
-    vim.notify("Please wait ... \nDownloading packer ...", "info", {title = "Packer"})
+    vim.notify("Please wait ... \nDownloading packer ...", "info", { title = "Packer" })
     return vim.fn.system(
       {
         "git",
@@ -99,7 +114,7 @@ packer.startup(
   {
     function(use)
       for name, opts in pairs(packer_install_plugins) do
-        local plugin = vim.tbl_extend("force", {name}, opts)
+        local plugin = vim.tbl_extend("force", { name }, opts)
         local file_name
         if opts.as then
           file_name = opts.as
@@ -114,7 +129,7 @@ packer.startup(
           vim.notify(
             "Missing config file for " .. name .. ": " .. config_path,
             "error",
-            {title = "packer"}
+            { title = "packer" }
           )
         end
         use(plugin)

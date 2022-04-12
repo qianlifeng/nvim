@@ -6,14 +6,62 @@ vim.g.maplocalleader = " "
 
 wk.register({
   ["<leader>"] = {
-    f = {
-      name = "查找",
-      f = { "<cmd>Telescope find_files<cr>", "查找文件" },
-      g = { "<cmd>Telescope live_grep<cr>", "查找字符串" },
-      r = { "<cmd>Telescope oldfiles<cr>", "查找打开过的文件" },
-      c = { "<cmd>Telescope commands<cr>", "查找命令" },
-    },
+    name = "常用命令",
+    f = "格式化",
+    u = { "<cmd>UndotreeToggle<cr>", "修改历史" },
+    t = { "<cmd>NvimTreeToggle<cr>", "文件管理器" },
+    h = { "<C-w>h", "跳转到左面窗口" },
+    j = { "<C-w>j", "跳转到下面窗口" },
+    k = { "<C-w>k", "跳转到上面窗口" },
+    l = { "<C-w>l", "跳转到右面窗口" },
+    q = { "<cmd>q<cr>", "关闭窗口" },
   },
+  -- ["*"] = { "*<cmd>lua require('hlslens').start()<CR>", "匹配下一个相同的字符串" },
+  -- ["n"] = { "<cmd>execute('normal! ' . v:count1 . 'n')<cr><cmd>lua require('hlslens').start()<cr>", "匹配下一个相同的字符串" },
+  -- ["N"] = { "<cmd>execute('normal! ' . v:count1 . 'N')<cr><cmd>lua require('hlslens').start()<cr>", "匹配上一个相同的字符串" },
+  f = {
+    name = "查找",
+    f = { "<cmd>Telescope find_files<cr>", "查找文件" },
+    g = { "<cmd>Telescope live_grep<cr>", "查找字符串" },
+    r = { "<cmd>Telescope oldfiles<cr>", "查找打开过的文件" },
+    c = { "<cmd>Telescope commands<cr>", "查找命令" },
+  },
+  r = {
+    name = "替换",
+    r = { "<cmd>lua require('spectre').open()<cr>", "全项目替换" },
+    f = { "<cmd>lua require('spectre').open_file_search()<cr>", "本文件替换" },
+    w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "全项目搜索当前单词" },
+  },
+  t = {
+    name = "命令行",
+    t = { "<cmd>lua require('toggleterm').float_toggle()<cr>", "打开/隐藏命令行浮动窗口" },
+    v = { "<cmd>lua require('toggleterm').vertical_toggle()<cr>", "打开/隐藏右侧命令行窗口" },
+    h = { "<cmd>lua require('toggleterm').term_toggle()<cr>", "打开/隐藏底部命令行窗口" },
+    g = { "<cmd>lua require('toggleterm').lazygit_toggle()<cr>", "打开lazygit浮动窗口" },
+    a = { "<cmd>lua require('toggleterm').toggle_all_term()<cr>", "打开/隐藏所有命令窗口" }
+  },
+  s = {
+    name = "快速跳转文本",
+    s = { "<cmd>HopWord<cr>", "跳转到单词" },
+    l = { "<cmd>HopLine<cr>", "跳转到行" },
+    c = { "<cmd>HopChar2<cr>", "跳转到字符" },
+  },
+  c = {
+    name = "注释相关",
+    c = "注释本行",
+    a = "在本行末尾注释",
+    o = "在下一行注释",
+    O = "在上一行注释",
+    v = "visual模式下注释",
+  },
+  g = {
+    name = "代码相关",
+    d = "查找定义",
+    r = "查找引用",
+    a = "显示Code Action",
+    n = "重命名",
+    h = "查看文档",
+  }
 })
 
 local mapping = {}
@@ -78,6 +126,7 @@ mapping.telescope = {
   }
 }
 
+-- lsp 快捷键
 mapping.lsp = function(mapbuf)
   mapbuf("n", "gn", "<cmd>Lspsaga rename<CR>", opt)
   mapbuf("n", "ga", "<cmd>Lspsaga code_action<CR>", opt)
@@ -100,4 +149,29 @@ mapping.lsp = function(mapbuf)
   -- mapbuf('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opt)
   -- mapbuf('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opt)
 end
+
+-- 命令行快捷键
+mapping.toggleterm = {
+  insert_exit = "<esc>",
+  float_exit = "<esc>"
+}
+
+-- 代码注释
+mapping.comment = {
+  normal_line_toggle = "cc",
+  normal_prev_rows = "cO",
+  normal_next_rows = "co",
+  noremal_end_line = "ca",
+  visual_line_toggle = "cv",
+}
+
+-- 文本替换
+mapping.nvim_spectre = {
+  toggle_line = "dd",
+  select_entry = "<cr>",
+  show_option_menu = "<leader>o",
+  run_replace = "<leader>r",
+  change_view_mode = "<leader>v"
+}
+
 return mapping
