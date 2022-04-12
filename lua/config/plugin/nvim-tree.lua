@@ -1,39 +1,48 @@
-vim.g.nvim_tree_icons = {
-  default = " ",
-  symlink = " ",
-  git = {
-    unstaged = "",
-    staged = "✓",
-    unmerged = "",
-    renamed = "➜",
-    untracked = "",
-    deleted = "",
-    ignored = ""
-  },
-  folder = {
-    arrow_open = "",
-    arrow_closed = "",
-    default = "",
-    open = "",
-    empty = "",
-    empty_open = "",
-    symlink = "",
-    symlink_open = ""
-  }
-}
+-- vim.g.nvim_tree_icons = {
+--   default = " ",
+--   symlink = " ",
+--   git = {
+--     unstaged = "",
+--     staged = "✓",
+--     unmerged = "",
+--     renamed = "➜",
+--     untracked = "",
+--     deleted = "",
+--     ignored = ""
+--   },
+--   folder = {
+--     arrow_open = "",
+--     arrow_closed = "",
+--     default = "",
+--     open = "",
+--     empty = "",
+--     empty_open = "",
+--     symlink = "",
+--     symlink_open = ""
+--   }
+-- }
 
 require("nvim-tree").setup(
   {
     view = {
-      width = 30,
-      height = 30,
+      width = 36,
+      -- 隐藏根目录
       hide_root_folder = false,
+      -- 快捷键
+      mappings = {
+        custom_only = true,
+        list = require("mapping").nvim_tree,
+      },
       auto_resize = true
     },
     actions = {
       change_dir = {
         enable = true,
         global = true
+      },
+      open_file = {
+        -- 打开文件时关闭tree
+        quit_on_open = false,
       }
     },
     diagnostics = {

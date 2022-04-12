@@ -17,13 +17,6 @@ local packer_install_plugins = {
     -- LUA工具库
     requires = { "nvim-lua/plenary.nvim" }
   },
-  -- 语法高亮
-  -- 可能会拖慢速度,需要排查
-  --["nvim-treesitter/nvim-treesitter"] = {
-  --  disable = true,
-  --  requires = {"p00f/nvim-ts-rainbow"},
-  --  run = ":TSUpdate"
-  --},
   -- 状态栏
   ["nvim-lualine/lualine.nvim"] = {
     after = "github-nvim-theme",
@@ -79,6 +72,10 @@ local packer_install_plugins = {
   ["nvim-pack/nvim-spectre"] = {},
   -- 保存undo历史记录
   ["mbbill/undotree"] = {},
+  -- 折叠优化
+  ["anuvyklack/pretty-fold.nvim"] = {},
+  -- git修改显示
+  ["lewis6991/gitsigns.nvim"] = {}
 }
 
 Packer_bootstrap = (function()

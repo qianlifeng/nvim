@@ -4,12 +4,29 @@ local wk = require("which-key")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+local map = vim.api.nvim_set_keymap
+local opt = {
+  noremap = true,
+  silent = true,
+}
+
+-- 个别不太方便用which-key定义的,就定义在这里
+
+-- terminal模式下窗口跳转
+map("t", "<leader>l", [[ <C-\><C-N><C-w>l ]], opt)
+map("t", "<leader>h", [[ <C-\><C-N><C-w>h ]], opt)
+map("t", "<leader>j", [[ <C-\><C-N><C-w>j ]], opt)
+map("t", "<leader>k", [[ <C-\><C-N><C-w>k ]], opt)
+-- 命令行下 Ctrl+j/k  上一个下一个
+map("c", "<C-j>", "<C-n>", { noremap = false })
+map("c", "<C-k>", "<C-p>", { noremap = false })
+
 wk.register({
   ["<leader>"] = {
     name = "常用命令",
     f = "格式化",
     u = { "<cmd>UndotreeToggle<cr>", "修改历史" },
-    t = { "<cmd>NvimTreeToggle<cr>", "文件管理器" },
+    t = { "<cmd>NvimTreeFindFileToggle<cr>", "文件管理器" },
     h = { "<C-w>h", "跳转到左面窗口" },
     j = { "<C-w>j", "跳转到下面窗口" },
     k = { "<C-w>k", "跳转到上面窗口" },
@@ -19,6 +36,8 @@ wk.register({
   -- ["*"] = { "*<cmd>lua require('hlslens').start()<CR>", "匹配下一个相同的字符串" },
   -- ["n"] = { "<cmd>execute('normal! ' . v:count1 . 'n')<cr><cmd>lua require('hlslens').start()<cr>", "匹配下一个相同的字符串" },
   -- ["N"] = { "<cmd>execute('normal! ' . v:count1 . 'N')<cr><cmd>lua require('hlslens').start()<cr>", "匹配上一个相同的字符串" },
+  -- ["<leader>h"] = { [[ <C-\><C-N><C-w>h ]], "terminal模式下,跳转到左边窗口", mode = "t" },
+  -- ["<leader>l"] = { "<C-\\><C-N><C-w>l", "terminal模式下,跳转到右边窗口", mode = "t" },
   f = {
     name = "查找",
     f = { "<cmd>Telescope find_files<cr>", "查找文件" },
@@ -172,6 +191,28 @@ mapping.nvim_spectre = {
   show_option_menu = "<leader>o",
   run_replace = "<leader>r",
   change_view_mode = "<leader>v"
+}
+
+-- 文件管理器
+mapping.nvim_tree = {
+  -- 打开文件或文件夹
+  { key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
+  -- 分屏打开文件
+  { key = "v", action = "vsplit" },
+  -- 显示隐藏文件
+  { key = "h", action = "split" },
+  -- Ignore (node_modules)
+  { key = "i", action = "toggle_ignored" },
+  -- Hide (dotfiles)
+  { key = ".", action = "toggle_dotfiles" },
+  -- 文件操作
+  { key = "<F5>", action = "refresh" },
+  { key = "a", action = "create" },
+  { key = "d", action = "remove" },
+  { key = "r", action = "rename" },
+  { key = "x", action = "cut" },
+  { key = "c", action = "copy" },
+  { key = "p", action = "paste" },
 }
 
 return mapping
