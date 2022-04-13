@@ -74,3 +74,7 @@ vim.o.showmode = false
 vim.opt.clipboard = "unnamedplus"
 -- 折叠
 vim.o.foldmethod = "syntax"
+-- 折叠最多折叠一层
+vim.o.foldnestmax = 1
+-- 默认不折叠
+vim.o.foldlevel = 99

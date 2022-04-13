@@ -14,17 +14,25 @@ local packer_install_plugins = {
   ["folke/which-key.nvim"] = {},
   -- 文件查找
   ["nvim-telescope/telescope.nvim"] = {
-    -- LUA工具库
     requires = { "nvim-lua/plenary.nvim" }
   },
-  -- 状态栏
-  ["nvim-lualine/lualine.nvim"] = {
-    after = "github-nvim-theme",
+  -- 增强telescope的性能
+  ["nvim-telescope/telescope-fzf-native.nvim"] = {
+    requires = { "nvim-telescope/telescope.nvim" },
+    run = "make",
   },
+  -- 默认的UI选择框改为telescope
+  ["nvim-telescope/telescope-ui-select.nvim"] = {},
+  -- 状态栏
+  ["nvim-lualine/lualine.nvim"] = {},
   -- 状态栏显示LSP进度
   ["arkav/lualine-lsp-progress"] = {},
   -- 主题
-  ["projekt0n/github-nvim-theme"] = {},
+  ["projekt0n/github-nvim-theme"] = {
+    disable = true,
+  },
+  -- 主题
+  ["rebelot/kanagawa.nvim"] = {},
   -- 自动填充另一半括号
   ["windwp/nvim-autopairs"] = {},
   -- 美化notify消息
@@ -35,8 +43,6 @@ local packer_install_plugins = {
   ["williamboman/nvim-lsp-installer"] = {},
   --增强LSP UI,例如查找引用,重命名等界面
   ["tami5/lspsaga.nvim"] = {},
-  -- github copilot
-  ["github/copilot.vim"] = {},
   -- 自动补全
   ["hrsh7th/nvim-cmp"] = {
     requires = {
@@ -46,7 +52,6 @@ local packer_install_plugins = {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-nvim-lsp-signature-help",
-      "hrsh7th/cmp-copilot",
     }
   },
   ["onsails/lspkind-nvim"] = {}, -- 自动补全的时候提供类型显示
@@ -75,7 +80,15 @@ local packer_install_plugins = {
   -- 折叠优化
   ["anuvyklack/pretty-fold.nvim"] = {},
   -- git修改显示
-  ["lewis6991/gitsigns.nvim"] = {}
+  ["lewis6991/gitsigns.nvim"] = {},
+  -- 语法高亮
+  ["nvim-treesitter/nvim-treesitter"] = {
+    run = ":TSUpdate"
+  },
+  -- 高亮当前所在字符
+  ["itchyny/vim-cursorword"] = {},
+  -- 项目管理
+  ["ahmedkhalf/project.nvim"] = {}
 }
 
 Packer_bootstrap = (function()

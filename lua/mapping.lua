@@ -20,6 +20,7 @@ map("t", "<leader>k", [[ <C-\><C-N><C-w>k ]], opt)
 -- 命令行下 Ctrl+j/k  上一个下一个
 map("c", "<C-j>", "<C-n>", { noremap = false })
 map("c", "<C-k>", "<C-p>", { noremap = false })
+-- map("n", "*", "*<cmd>lua require('hlslens').start()<CR>", opt)
 
 wk.register({
   ["<leader>"] = {
@@ -33,17 +34,13 @@ wk.register({
     l = { "<C-w>l", "跳转到右面窗口" },
     q = { "<cmd>q<cr>", "关闭窗口" },
   },
-  -- ["*"] = { "*<cmd>lua require('hlslens').start()<CR>", "匹配下一个相同的字符串" },
-  -- ["n"] = { "<cmd>execute('normal! ' . v:count1 . 'n')<cr><cmd>lua require('hlslens').start()<cr>", "匹配下一个相同的字符串" },
-  -- ["N"] = { "<cmd>execute('normal! ' . v:count1 . 'N')<cr><cmd>lua require('hlslens').start()<cr>", "匹配上一个相同的字符串" },
-  -- ["<leader>h"] = { [[ <C-\><C-N><C-w>h ]], "terminal模式下,跳转到左边窗口", mode = "t" },
-  -- ["<leader>l"] = { "<C-\\><C-N><C-w>l", "terminal模式下,跳转到右边窗口", mode = "t" },
   f = {
     name = "查找",
     f = { "<cmd>Telescope find_files<cr>", "查找文件" },
     g = { "<cmd>Telescope live_grep<cr>", "查找字符串" },
     r = { "<cmd>Telescope oldfiles<cr>", "查找打开过的文件" },
     c = { "<cmd>Telescope commands<cr>", "查找命令" },
+    s = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "查找项目类型" },
   },
   r = {
     name = "替换",
@@ -147,20 +144,20 @@ mapping.telescope = {
 
 -- lsp 快捷键
 mapping.lsp = function(mapbuf)
+  mapbuf("n", "gr", "<cmd>Telescope lsp_references<CR>", opt)
+  mapbuf("n", "ga", "<cmd>Telescope lsp_code_actions<CR>", opt)
+  mapbuf("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opt)
+  mapbuf("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opt)
+  mapbuf("n", "gp", "<cmd>Lspsaga preview_definition<CR>", opt)
   mapbuf("n", "gn", "<cmd>Lspsaga rename<CR>", opt)
-  mapbuf("n", "ga", "<cmd>Lspsaga code_action<CR>", opt)
-  mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
   mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<cr>", opt)
-  mapbuf("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opt)
-  --mapbuf("n", "gr", "<cmd>Telescope lsp_references<CR>", opt)
   -- diagnostic
-  mapbuf("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
+  mapbuf("n", "gl", "<cmd>Telescope diagnostics<CR>", opt)
   mapbuf("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
   mapbuf("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
   mapbuf("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opt)
   -- 未用
   -- mapbuf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
-  -- mapbuf("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
   -- mapbuf('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
   -- mapbuf("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opt)
   -- mapbuf('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opt)

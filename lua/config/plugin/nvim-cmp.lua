@@ -23,8 +23,12 @@ local label_comparator = function(entry1, entry2)
 end
 
 cmp.setup(
-  ---@diagnostic disable-next-line: redundant-parameter
+---@diagnostic disable-next-line: redundant-parameter
   {
+    completion = {
+      -- 确保第一个项目是被高亮的
+      completeopt = "menu,menuone,noinsert",
+    },
     mapping = require("mapping").cmp(cmp),
     snippet = {
       expand = function(args)
@@ -33,12 +37,11 @@ cmp.setup(
     },
     sources = cmp.config.sources(
       {
-        {name = "nvim_lsp"},
-        {name = "path"},
-        {name = "buffer"},
-        {name = "cmdline"},
-        {name = "nvim_lsp_signature_help"},
-        {name = "copilot"},
+        { name = "nvim_lsp" },
+        { name = "path" },
+        { name = "buffer" },
+        { name = "cmdline" },
+        { name = "nvim_lsp_signature_help" },
       }
     ),
     formatting = {
@@ -60,7 +63,7 @@ cmp.setup.cmdline(
   "/",
   {
     sources = {
-      {name = "buffer"}
+      { name = "buffer" }
     }
   }
 )
@@ -69,7 +72,7 @@ cmp.setup.cmdline(
   "?",
   {
     sources = {
-      {name = "buffer"}
+      { name = "buffer" }
     }
   }
 )
@@ -79,12 +82,11 @@ cmp.setup.cmdline(
   {
     sources = cmp.config.sources(
       {
-        {name = "path"}
+        { name = "path" }
       },
       {
-        {name = "cmdline"}
+        { name = "cmdline" }
       }
     )
   }
 )
-
