@@ -33,6 +33,7 @@ wk.register({
     k = { "<C-w>k", "跳转到上面窗口" },
     l = { "<C-w>l", "跳转到右面窗口" },
     q = { "<cmd>q<cr>", "关闭窗口" },
+    b = { "<cmd>BufferLinePick<cr>", "选择buffer" },
   },
   f = {
     name = "查找",
@@ -59,8 +60,8 @@ wk.register({
   s = {
     name = "快速跳转文本",
     s = { "<cmd>HopWord<cr>", "跳转到单词" },
+    c = { "<cmd>HopChar1<cr>", "跳转到字符" },
     l = { "<cmd>HopLine<cr>", "跳转到行" },
-    c = { "<cmd>HopChar2<cr>", "跳转到字符" },
   },
   c = {
     name = "注释相关",
@@ -77,14 +78,19 @@ wk.register({
     a = "显示Code Action",
     n = "重命名",
     h = "查看文档",
-  }
+  },
+  d = {
+    name = "调试相关",
+    b = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "设置断点" },
+    c = { "<cmd>lua require'dap'.clear_breakpoints()<cr>", "清除所有断点" },
+    u = { "<cmd>lua require'dapui'.toggle()<cr>", "显示/隐藏调试界面" },
+    r = { "<cmd>lua require'dap'.continue()<cr>", "继续运行" },
+    s = { "<cmd>lua require'dap'.step_into()<cr>", "步入运行" },
+    o = { "<cmd>lua require'dap'.step_over()<cr>", "跳过运行" },
+  },
 })
 
 local mapping = {}
-local opt = {
-  noremap = true,
-  silent = true,
-}
 
 -- nvim-cmp 自动补全快捷键
 mapping.cmp = function(cmp)

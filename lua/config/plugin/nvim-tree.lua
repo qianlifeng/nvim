@@ -1,10 +1,10 @@
-vim.g.nvim_tree_respect_buf_cwd = 1
+local utils = require("util")
+
+vim.g.nvim_tree_highlight_opened_files = 2
 
 require("nvim-tree").setup({
-  update_cwd = true,
   update_focused_file = {
     enable = true,
-    update_cwd = true,
   },
   view = {
     width = 36,
@@ -43,14 +43,29 @@ require("nvim-tree").setup({
   }
 })
 
---只剩一个buffer的时候,自动关闭
+--只剩一个windows的时候,自动关闭
 vim.api.nvim_create_autocmd(
   { "BufEnter" },
   {
     pattern = { "*" },
     callback = function()
-      if vim.fn.winnr("$") == 1 and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr() then
+      if vim.fn.winnr("$") == 1 and utils.string.hasPrefix(vim.fn.bufname(), "NvimTree_") then
         vim.cmd("quit")
+      end
+    end
+  }
+)
+
+-- 打开buffer的时候自动打开nvim tree
+vim.api.nvim_create_autocmd(
+  { "BufEnter" },
+  {
+    pattern = { "*" },
+    callback = function()
+      local bufName = vim.fn.bufname()
+      if bufName ~= "" and not utils.string.hasPrefix(bufName, "NvimTree_") then
+        vim.cmd("NvimTreeOpen")
+        vim.cmd("wincmd p")
       end
     end
   }

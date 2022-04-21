@@ -2,8 +2,10 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = { "go", "lua"},
    highlight = {
     enable = true,
-    -- go文件语法高亮在文件较大的时候输入会很卡,暂时禁用
-    disable = { "go" },
+    disable = function(lang, bufnr) 
+      -- treesitter在文件行数比较多的时候性能不太行, 所以文件行数太多的时候禁用
+      return vim.api.nvim_buf_line_count(bufnr) > 2000
+    end,
     additional_vim_regex_highlighting = false,
   },
 }

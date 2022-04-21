@@ -88,7 +88,15 @@ local packer_install_plugins = {
   -- 高亮当前所在字符
   ["itchyny/vim-cursorword"] = {},
   -- 项目管理
-  ["ahmedkhalf/project.nvim"] = {}
+  ["ahmedkhalf/project.nvim"] = {},
+  -- DAP 调试相关
+  ["mfussenegger/nvim-dap"] = {},
+  ["rcarriga/nvim-dap-ui"] = {
+    after = { "nvim-dap" }
+  },
+  ["leoluz/nvim-dap-go"] = {
+    after = { "nvim-dap" }
+  },
 }
 
 Packer_bootstrap = (function()

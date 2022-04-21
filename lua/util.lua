@@ -36,6 +36,10 @@ function M.string.title(str)
     ))
 end
 
+function M.string.hasPrefix(text, prefix)
+    return text:find(prefix, 1, true) == 1
+end
+
 M.hi = {}
 
 function M.hi.set(name, opts)

@@ -1,5 +1,4 @@
 require("hlslens").setup({
-  calm_down = true,
 })
 
 local kopts = {noremap = true, silent = true}
