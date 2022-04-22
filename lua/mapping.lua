@@ -12,6 +12,12 @@ local opt = {
 
 -- 个别不太方便用which-key定义的,就定义在这里
 
+-- 上下滚动浏览
+map("n", "<C-j>", "5j", opt)
+map("n", "<C-k>", "5k", opt)
+-- ctrl u / ctrl + d  只移动9行，默认移动半屏
+map("n", "<C-u>", "10k", opt)
+map("n", "<C-d>", "10j", opt)
 -- terminal模式下窗口跳转
 map("t", "<leader>l", [[ <C-\><C-N><C-w>l ]], opt)
 map("t", "<leader>h", [[ <C-\><C-N><C-w>h ]], opt)
@@ -20,7 +26,11 @@ map("t", "<leader>k", [[ <C-\><C-N><C-w>k ]], opt)
 -- 命令行下 Ctrl+j/k  上一个下一个
 map("c", "<C-j>", "<C-n>", { noremap = false })
 map("c", "<C-k>", "<C-p>", { noremap = false })
--- map("n", "*", "*<cmd>lua require('hlslens').start()<CR>", opt)
+-- *,N搜索提示
+map('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], opt)
+map('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], opt)
+map('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], opt)
+map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], opt)
 
 wk.register({
   ["<leader>"] = {
@@ -125,7 +135,7 @@ mapping.cmp = function(cmp)
       else
         fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
       end
-    end, { "i", "s" }),
+    end, { "i", "s", "c" }),
     ["<S-Tab>"] = cmp.mapping(function()
       if cmp.visible() then
         cmp.select_prev_item()
@@ -151,9 +161,9 @@ mapping.telescope = {
 -- lsp 快捷键
 mapping.lsp = function(mapbuf)
   mapbuf("n", "gr", "<cmd>Telescope lsp_references<CR>", opt)
-  mapbuf("n", "ga", "<cmd>Telescope lsp_code_actions<CR>", opt)
   mapbuf("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opt)
   mapbuf("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opt)
+  mapbuf("n", "ga", "<cmd>Lspsaga code_action<CR>", opt)
   mapbuf("n", "gp", "<cmd>Lspsaga preview_definition<CR>", opt)
   mapbuf("n", "gn", "<cmd>Lspsaga rename<CR>", opt)
   mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<cr>", opt)

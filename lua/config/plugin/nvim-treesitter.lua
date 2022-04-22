@@ -9,3 +9,7 @@ require('nvim-treesitter.configs').setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+-- 使用treesitter折叠
+vim.o.foldmethod='expr'
+vim.o.foldexpr='nvim_treesitter#foldexpr()'

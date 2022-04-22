@@ -29,6 +29,7 @@ cmp.setup(
       -- 确保第一个项目是被高亮的
       completeopt = "menu,menuone,noinsert",
     },
+    preselect = 'cmp.PreselectMode.None',
     mapping = require("mapping").cmp(cmp),
     snippet = {
       expand = function(args)
@@ -38,6 +39,7 @@ cmp.setup(
     sources = cmp.config.sources(
       {
         { name = "nvim_lsp" },
+        { name = "vsnip" },
         { name = "path" },
         { name = "buffer" },
         { name = "cmdline" },

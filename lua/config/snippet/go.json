@@ -1,0 +1,7 @@
+{
+  "logger with format": {
+    "prefix": "loggerd",
+    "body": "logger.Debug(fmt.Sprintf(\"${1:msg}\",${2:parameter}))",
+    "description": "logger with format"
+  }
+}

@@ -57,6 +57,7 @@ local packer_install_plugins = {
   ["onsails/lspkind-nvim"] = {}, -- 自动补全的时候提供类型显示
   -- Snippet 引擎
   ["hrsh7th/vim-vsnip"] = {},
+  ["hrsh7th/vim-vsnip-integ"] = {},
   -- 常见编程语言代码段
   ["rafamadriz/friendly-snippets"] = {},
   -- 命令行窗口
