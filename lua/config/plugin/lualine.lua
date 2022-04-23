@@ -1,5 +1,10 @@
 require("lualine").setup({
   options = {
+    -- nvimTree不需要显示状态栏
+    disabled_filetypes = {
+      'NvimTree',
+      'aerial'
+    },
     -- 指定皮肤
     theme = 'auto',
     -- 分割线
@@ -15,6 +20,7 @@ require("lualine").setup({
   sections = {
     lualine_c = {
       'filename',
+      'aerial',
       'lsp_progress'
     },
     lualine_x = {

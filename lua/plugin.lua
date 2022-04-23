@@ -51,6 +51,7 @@ local packer_install_plugins = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-copilot",
       "hrsh7th/cmp-nvim-lsp-signature-help",
     }
   },
@@ -98,6 +99,10 @@ local packer_install_plugins = {
   ["leoluz/nvim-dap-go"] = {
     after = { "nvim-dap" }
   },
+  -- 右侧symbol列表显示
+  ["stevearc/aerial.nvim"] = {},
+  -- 多光标操作
+  ["mg979/vim-visual-multi"] = {}
 }
 
 Packer_bootstrap = (function()

@@ -1,9 +1,8 @@
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-local opts = {
+return {
   settings = {
     Lua = {
       runtime = {
@@ -30,22 +29,4 @@ local opts = {
   flags = {
     debounce_text_changes = 150,
   },
-  on_attach = function(client, bufnr)
-    local function buf_set_keymap(...)
-      vim.api.nvim_buf_set_keymap(bufnr, ...)
-    end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-    -- 绑定快捷键
-    require("mapping").lsp(buf_set_keymap)
-  end,
-}
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-opts.capabilities = capabilities
-
-return {
-  on_setup = function(server)
-    server:setup(opts)
-  end,
 }

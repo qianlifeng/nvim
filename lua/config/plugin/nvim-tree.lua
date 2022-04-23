@@ -18,23 +18,10 @@ require("nvim-tree").setup({
     auto_resize = true
   },
   actions = {
+    -- 在tree里面切换目录的时候是否需要更改当前活动目录
     change_dir = {
-      enable = true,
-      global = true
+      enable = false,
     },
-    open_file = {
-      -- 打开文件时关闭tree
-      quit_on_open = false,
-    }
-  },
-  diagnostics = {
-    enable = false,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = ""
-    }
   },
   git = {
     enable = true,
@@ -49,8 +36,23 @@ vim.api.nvim_create_autocmd(
   {
     pattern = { "*" },
     callback = function()
-      if vim.fn.winnr("$") == 1 and utils.string.hasPrefix(vim.fn.bufname(), "NvimTree_") then
-        vim.cmd("quit")
+      local windowsCount = vim.fn.winnr("$")
+
+      -- 只有NvimTree 跟 aerial 的时候自动退出
+      if windowsCount == 2 then
+        local windowFileType1 = vim.fn.getbufvar(vim.fn.winbufnr(1),"&filetype")
+        local windowFileType2 = vim.fn.getbufvar(vim.fn.winbufnr(2),"&filetype")
+        if windowFileType1 == "NvimTree" and windowFileType2 == "aerial" then
+          vim.cmd("qa")
+        end
+      end
+
+      -- 只有NvimTree 或者 aertial 的时候自动退出
+      if windowsCount == 1 then
+        local windowFileType1 = vim.fn.getbufvar(vim.fn.winbufnr(1),"&filetype")
+        if windowFileType1 == "NvimTree" or windowFileType1 == "aerial" then
+          vim.cmd("qa")
+        end
       end
     end
   }
@@ -63,7 +65,7 @@ vim.api.nvim_create_autocmd(
     pattern = { "*" },
     callback = function()
       local bufName = vim.fn.bufname()
-      if bufName ~= "" and not utils.string.hasPrefix(bufName, "NvimTree_") then
+      if bufName ~= "" and not utils.string.has_prefix(bufName, "NvimTree_") then
         vim.cmd("NvimTreeOpen")
         vim.cmd("wincmd p")
       end

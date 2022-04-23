@@ -35,7 +35,7 @@ map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], opt)
 wk.register({
   ["<leader>"] = {
     name = "常用命令",
-    f = "格式化",
+    f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "格式化" },
     u = { "<cmd>UndotreeToggle<cr>", "修改历史" },
     t = { "<cmd>NvimTreeFindFileToggle<cr>", "文件管理器" },
     h = { "<C-w>h", "跳转到左面窗口" },
@@ -171,7 +171,6 @@ mapping.lsp = function(mapbuf)
   mapbuf("n", "gl", "<cmd>Telescope diagnostics<CR>", opt)
   mapbuf("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
   mapbuf("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
-  mapbuf("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opt)
   -- 未用
   -- mapbuf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
   -- mapbuf('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
@@ -199,11 +198,7 @@ mapping.comment = {
 
 -- 文本替换
 mapping.nvim_spectre = {
-  toggle_line = "dd",
-  select_entry = "<cr>",
-  show_option_menu = "<leader>o",
-  run_replace = "<leader>r",
-  change_view_mode = "<leader>v"
+  send_to_qf = "<leader>_" --原来的默认的快捷键为<leader>q,与关闭冲突,所以这里替换为一个不常用的
 }
 
 -- 文件管理器

@@ -36,7 +36,7 @@ function M.string.title(str)
     ))
 end
 
-function M.string.hasPrefix(text, prefix)
+function M.string.has_prefix(text, prefix)
     return text:find(prefix, 1, true) == 1
 end
 

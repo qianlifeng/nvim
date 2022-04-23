@@ -6,7 +6,11 @@ local lsp_installer = require("nvim-lsp-installer")
 -- https://github.com/williamboman/nvim-lsp-installer#available-lsps
 local servers = {
   sumneko_lua = require("config.lsp.lua"), -- lua/config/lsp/lua.lua
-  gopls = require("config.lsp.go")
+  gopls = require("config.lsp.go"),
+  tsserver = require("config.lsp.typescript"),
+  html = require("config.lsp.html"),
+  cssls = require("config.lsp.css"),
+  jsonls = require("config.lsp.json"),
 }
 
 -- 自动安装 Language Servers
@@ -22,14 +26,17 @@ end
 
 lsp_installer.on_server_ready(function(server)
   local config = servers[server.name]
-  if config == nil then
-    return
+
+  -- 绑定快捷键
+  config.on_attach = function(client, bufnr)
+    local function buf_set_keymap(...)
+      vim.api.nvim_buf_set_keymap(bufnr, ...)
+    end
+    require("mapping").lsp(buf_set_keymap)
+
+    -- aerial tagbar使用LSP
+    require("aerial").on_attach(client, bufnr)
   end
-  if type(config) == "table" and config.on_setup then
-    -- 自定义初始化配置文件必须实现on_setup 方法
-    config.on_setup(server)
-  else
-    -- 使用默认参数
-    server:setup({})
-  end
+
+  server:setup(config)
 end)
