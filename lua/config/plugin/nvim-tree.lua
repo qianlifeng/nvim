@@ -15,7 +15,6 @@ require("nvim-tree").setup({
       custom_only = true,
       list = require("mapping").nvim_tree,
     },
-    auto_resize = true
   },
   actions = {
     -- 在tree里面切换目录的时候是否需要更改当前活动目录

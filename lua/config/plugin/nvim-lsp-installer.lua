@@ -26,17 +26,24 @@ end
 
 lsp_installer.on_server_ready(function(server)
   local config = servers[server.name]
+  -- 部分安装过的历史server可能不存在上面的配置server列表中,不需要配置
+  if config == nil then
+    return
+  end
 
   -- 绑定快捷键
   config.on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
       vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
+
     require("mapping").lsp(buf_set_keymap)
 
     -- aerial tagbar使用LSP
     require("aerial").on_attach(client, bufnr)
   end
+
+
 
   server:setup(config)
 end)
