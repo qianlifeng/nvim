@@ -88,6 +88,7 @@ wk.register({
     a = "显示Code Action",
     n = "重命名",
     h = "查看文档",
+    i = "查找所有的实现",
   },
   d = {
     name = "调试相关",
@@ -98,6 +99,11 @@ wk.register({
     s = { "<cmd>lua require'dap'.step_into()<cr>", "步入运行" },
     o = { "<cmd>lua require'dap'.step_over()<cr>", "跳过运行" },
   },
+  m = {
+    name = "书签相关",
+    m = { "<Plug>BookmarkToggle", "切换书签" },
+    a = { "<cmd>Telescope vim_bookmarks all<cr>", "搜索所有书签" }
+  }
 })
 
 local mapping = {}

@@ -44,6 +44,7 @@ cmp.setup(
         { name = "buffer" },
         { name = "cmdline" },
         { name = "nvim_lsp_signature_help" },
+        { name = 'cmp_tabnine' },
       }
     ),
     formatting = {

@@ -102,7 +102,12 @@ local packer_install_plugins = {
   -- 右侧symbol列表显示
   ["stevearc/aerial.nvim"] = {},
   -- 多光标操作
-  ["mg979/vim-visual-multi"] = {}
+  ["mg979/vim-visual-multi"] = {},
+  -- bookmark操作
+  ["MattesGroeger/vim-bookmarks"] = {},
+  ["tom-anders/telescope-vim-bookmarks.nvim"] = {
+    after = { "vim-bookmarks" }
+  },
 }
 
 Packer_bootstrap = (function()
