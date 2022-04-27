@@ -108,6 +108,10 @@ local packer_install_plugins = {
   ["tom-anders/telescope-vim-bookmarks.nvim"] = {
     after = { "vim-bookmarks" }
   },
+  -- 删除buffer增强
+  ["famiu/bufdelete.nvim"] = {},
+  -- text objects增强
+  ["wellle/targets.vim"] = {}
 }
 
 Packer_bootstrap = (function()

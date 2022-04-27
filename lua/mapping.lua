@@ -12,68 +12,67 @@ local opt = {
 
 -- 个别不太方便用which-key定义的,就定义在这里
 
--- 上下滚动浏览
-map("n", "<C-j>", "5j", opt)
-map("n", "<C-k>", "5k", opt)
--- ctrl u / ctrl + d  只移动9行，默认移动半屏
-map("n", "<C-u>", "10k", opt)
-map("n", "<C-d>", "10j", opt)
--- terminal模式下窗口跳转
-map("t", "<leader>l", [[ <C-\><C-N><C-w>l ]], opt)
-map("t", "<leader>h", [[ <C-\><C-N><C-w>h ]], opt)
-map("t", "<leader>j", [[ <C-\><C-N><C-w>j ]], opt)
-map("t", "<leader>k", [[ <C-\><C-N><C-w>k ]], opt)
--- 命令行下 Ctrl+j/k  上一个下一个
-map("c", "<C-j>", "<C-n>", { noremap = false })
-map("c", "<C-k>", "<C-p>", { noremap = false })
 -- *,N搜索提示
 map('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], opt)
 map('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], opt)
 map('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], opt)
 map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], opt)
 
+map('n', '<C-p>', "<cmd>Telescope find_files<cr>", opt)
+map('n', '<C-f>', "<cmd>Telescope live_grep<cr>", opt)
+map('n', '<C-F>', "<cmd>Telescope grep_string<cr>", opt)
+map('n', '<C-g>', "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", opt)
+map('n', '<C-s>', "<cmd>lua vim.lsp.buf.formatting()<cr>", opt)
+-- 窗口跳转
+map("t", "<C-l>", [[ <C-\><C-N><C-w>l ]], opt)
+map("t", "<C-h>", [[ <C-\><C-N><C-w>h ]], opt)
+map("t", "<C-j>", [[ <C-\><C-N><C-w>j ]], opt)
+map("t", "<C-k>", [[ <C-\><C-N><C-w>k ]], opt)
+map("n", "<C-l>", "<C-w>l", opt)
+map("n", "<C-h>", "<C-w>h", opt)
+map("n", "<C-j>", "<C-w>j", opt)
+map("n", "<C-k>", "<C-w>k", opt)
+-- 一些极度常用
+map("n", "ss", "<cmd>HopWord<cr>", opt)
+map('n', "tt", "<cmd>lua require('toggleterm').float_toggle()<cr>", opt)
+
 wk.register({
   ["<leader>"] = {
     name = "常用命令",
-    f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "格式化" },
     u = { "<cmd>UndotreeToggle<cr>", "修改历史" },
-    t = { "<cmd>NvimTreeFindFileToggle<cr>", "文件管理器" },
-    h = { "<C-w>h", "跳转到左面窗口" },
-    j = { "<C-w>j", "跳转到下面窗口" },
-    k = { "<C-w>k", "跳转到上面窗口" },
-    l = { "<C-w>l", "跳转到右面窗口" },
-    q = { "<cmd>q<cr>", "关闭窗口" },
-    b = { "<cmd>BufferLinePick<cr>", "选择buffer" },
+    e = { "<cmd>NvimTreeFindFileToggle<cr>", "文件管理器" },
+    q = { "<cmd>q<cr>", "关闭buffer" },
   },
-  f = {
+  ["<leader>f"] = {
     name = "查找",
-    f = { "<cmd>Telescope find_files<cr>", "查找文件" },
-    g = { "<cmd>Telescope live_grep<cr>", "查找字符串" },
     r = { "<cmd>Telescope oldfiles<cr>", "查找打开过的文件" },
     c = { "<cmd>Telescope commands<cr>", "查找命令" },
     s = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "查找项目类型" },
   },
-  r = {
+  ["<leader>b"] = {
+    name = "Buffer",
+    b = { "<cmd>BufferLinePick<cr>", "选择buffer" },
+    c = { "<cmd>Bdelete<cr>", "关闭buffer" },
+  },
+  ["<leader>r"] = {
     name = "替换",
     r = { "<cmd>lua require('spectre').open()<cr>", "全项目替换" },
     f = { "<cmd>lua require('spectre').open_file_search()<cr>", "本文件替换" },
     w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "全项目搜索当前单词" },
   },
-  t = {
+  ["<leader>g"] = {
+    name = "Git相关",
+    u = { "<cmd>Gitsigns reset_hunk<cr>", "撤销本段修改" },
+    p = { "<cmd>Gitsigns preview_hunk<cr>", "比较本次修改" },
+  },
+  ["<leader>t"] = {
     name = "命令行",
-    t = { "<cmd>lua require('toggleterm').float_toggle()<cr>", "打开/隐藏命令行浮动窗口" },
     v = { "<cmd>lua require('toggleterm').vertical_toggle()<cr>", "打开/隐藏右侧命令行窗口" },
-    h = { "<cmd>lua require('toggleterm').term_toggle()<cr>", "打开/隐藏底部命令行窗口" },
+    h = { "<cmd>lua require('toggleterm').horizontal_toggle()<cr>", "打开/隐藏底部命令行窗口" },
     g = { "<cmd>lua require('toggleterm').lazygit_toggle()<cr>", "打开lazygit浮动窗口" },
     a = { "<cmd>lua require('toggleterm').toggle_all_term()<cr>", "打开/隐藏所有命令窗口" }
   },
-  s = {
-    name = "快速跳转文本",
-    s = { "<cmd>HopWord<cr>", "跳转到单词" },
-    c = { "<cmd>HopChar1<cr>", "跳转到字符" },
-    l = { "<cmd>HopLine<cr>", "跳转到行" },
-  },
-  c = {
+  ["<leader>c"] = {
     name = "注释相关",
     c = "注释本行",
     a = "在本行末尾注释",
@@ -81,7 +80,7 @@ wk.register({
     O = "在上一行注释",
     v = "visual模式下注释",
   },
-  g = {
+  ["g"] = {
     name = "代码相关",
     d = "查找定义",
     r = "查找引用",
@@ -90,7 +89,7 @@ wk.register({
     h = "查看文档",
     i = "查找所有的实现",
   },
-  d = {
+  ["<leader>d"] = {
     name = "调试相关",
     b = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "设置断点" },
     c = { "<cmd>lua require'dap'.clear_breakpoints()<cr>", "清除所有断点" },
@@ -99,7 +98,7 @@ wk.register({
     s = { "<cmd>lua require'dap'.step_into()<cr>", "步入运行" },
     o = { "<cmd>lua require'dap'.step_over()<cr>", "跳过运行" },
   },
-  m = {
+  ["<leader>m"] = {
     name = "书签相关",
     m = { "<Plug>BookmarkToggle", "切换书签" },
     a = { "<cmd>Telescope vim_bookmarks all<cr>", "搜索所有书签" }
@@ -195,11 +194,11 @@ mapping.toggleterm = {
 
 -- 代码注释
 mapping.comment = {
-  normal_line_toggle = "cc",
-  normal_prev_rows = "cO",
-  normal_next_rows = "co",
-  noremal_end_line = "ca",
-  visual_line_toggle = "cv",
+  normal_line_toggle = "<leader>cc",
+  normal_prev_rows = "<leader>cO",
+  normal_next_rows = "<leader>co",
+  noremal_end_line = "<leader>ca",
+  visual_line_toggle = "<leader>cv",
 }
 
 -- 文本替换
