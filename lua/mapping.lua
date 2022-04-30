@@ -20,7 +20,6 @@ map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], opt)
 
 map('n', '<C-p>', "<cmd>Telescope find_files<cr>", opt)
 map('n', '<C-f>', "<cmd>Telescope live_grep<cr>", opt)
-map('n', '<C-F>', "<cmd>Telescope grep_string<cr>", opt)
 map('n', '<C-g>', "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", opt)
 map('n', '<C-s>', "<cmd>lua vim.lsp.buf.formatting()<cr>", opt)
 -- 窗口跳转
@@ -45,6 +44,7 @@ wk.register({
   },
   ["<leader>f"] = {
     name = "查找",
+    f = { "<cmd>Telescope grep_string<cr>", "搜索当前光标下面的单词" },
     r = { "<cmd>Telescope oldfiles<cr>", "查找打开过的文件" },
     c = { "<cmd>Telescope commands<cr>", "查找命令" },
     s = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "查找项目类型" },
