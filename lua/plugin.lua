@@ -80,7 +80,11 @@ local packer_install_plugins = {
   -- 保存undo历史记录
   ["mbbill/undotree"] = {},
   -- 折叠优化
-  ["anuvyklack/pretty-fold.nvim"] = {},
+  ["anuvyklack/pretty-fold.nvim"] = {
+    requires = {
+      "anuvyklack/nvim-keymap-amend"
+    }
+  },
   -- git修改显示
   ["lewis6991/gitsigns.nvim"] = {},
   -- 语法高亮
@@ -111,7 +115,9 @@ local packer_install_plugins = {
   -- 删除buffer增强
   ["famiu/bufdelete.nvim"] = {},
   -- text objects增强
-  ["wellle/targets.vim"] = {}
+  ["wellle/targets.vim"] = {},
+  -- scrollbar
+  ["petertriho/nvim-scrollbar"] = {}
 }
 
 Packer_bootstrap = (function()

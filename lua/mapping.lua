@@ -21,7 +21,6 @@ map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], opt)
 map('n', '<C-p>', "<cmd>Telescope find_files<cr>", opt)
 map('n', '<C-f>', "<cmd>Telescope live_grep<cr>", opt)
 map('n', '<C-g>', "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", opt)
-map('n', '<C-s>', "<cmd>lua vim.lsp.buf.formatting()<cr>", opt)
 -- 窗口跳转
 map("t", "<C-l>", [[ <C-\><C-N><C-w>l ]], opt)
 map("t", "<C-h>", [[ <C-\><C-N><C-w>h ]], opt)
@@ -36,6 +35,7 @@ map("n", "ss", "<cmd>HopWord<cr>", opt)
 map('n', "tt", "<cmd>lua require('toggleterm').float_toggle()<cr>", opt)
 
 wk.register({
+  ["<leader><leader>"] = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "格式化" },
   ["<leader>"] = {
     name = "常用命令",
     u = { "<cmd>UndotreeToggle<cr>", "修改历史" },
@@ -64,6 +64,8 @@ wk.register({
     name = "Git相关",
     u = { "<cmd>Gitsigns reset_hunk<cr>", "撤销本段修改" },
     p = { "<cmd>Gitsigns preview_hunk<cr>", "比较本次修改" },
+    j = { "<cmd>Gitsigns next_hunk<cr>", "下一处Git修改" },
+    k = { "<cmd>Gitsigns prev_hunk<cr>", "上一处Git修改" },
   },
   ["<leader>t"] = {
     name = "命令行",
