@@ -12,6 +12,8 @@ local packer_install_plugins = {
   ["akinsho/bufferline.nvim"] = {},
   -- 快捷键提示
   ["folke/which-key.nvim"] = {},
+  -- 代码错误窗口
+  ["bellini666/trouble.nvim"] = {},
   -- 文件查找
   ["nvim-telescope/telescope.nvim"] = {
     requires = { "nvim-lua/plenary.nvim" }

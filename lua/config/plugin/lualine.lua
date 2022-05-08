@@ -3,7 +3,8 @@ require("lualine").setup({
     -- nvimTree不需要显示状态栏
     disabled_filetypes = {
       'NvimTree',
-      'aerial'
+      'aerial',
+      'Trouble'
     },
     -- 指定皮肤
     theme = 'auto',
